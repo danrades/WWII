@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1945 – Kriegsende und der Weg zum Frieden | LearningApp</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 20px;
+            background: #ecf0f1;
+            flex-wrap: wrap;
+        }
+
+        .nav-buttons button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            background: #3498db;
+            color: white;
+            cursor: pointer;
+            font-size: 0.95em;
+            transition: all 0.3s;
+        }
+
+        .nav-buttons button:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        .nav-buttons button.active {
+            background: #e74c3c;
+        }
+
+        .exercise {
+            display: none;
+            padding: 30px;
+        }
+
+        .exercise.active {
+            display: block;
+        }
+
+        .exercise h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        .exercise p {
+            margin-bottom: 20px;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        .question {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 4px solid #3498db;
+        }
+
+        .question h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #bdc3c7;
+            border-radius: 8px;
+            font-size: 1em;
+            margin: 10px 0;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+
+        .options label {
+            display: block;
+            padding: 12px;
+            margin: 8px 0;
+            background: white;
+            border: 2px solid #ecf0f1;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .options label:hover {
+            background: #f8f9fa;
+            border-color: #3498db;
+        }
+
+        .options input[type="checkbox"],
+        .options input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        .check-btn {
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            margin-top: 15px;
+            transition: all 0.3s;
+        }
+
+        .check-btn:hover {
+            background: #229954;
+        }
+
+        .feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .feedback.correct {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            display: block;
+        }
+
+        .feedback.incorrect {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            display: block;
+        }
+
+        .solution {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .matching-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .match-item {
+            padding: 15px;
+            background: white;
+            border: 2px solid #ecf0f1;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .match-item:hover {
+            border-color: #3498db;
+            background: #f8f9fa;
+        }
+
+        .match-item.selected {
+            border-color: #f39c12;
+            background: #fef9e7;
+        }
+
+        .match-item.matched {
+            border-color: #27ae60;
+            background: #d4edda;
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        footer {
+            background: #ecf0f1;
+            padding: 20px;
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 600px) {
+            .matching-grid {
+                grid-template-columns: 1fr;
+            }
+
+            header h1 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🕊️ 1945 – Kriegsende und der Weg zum Frieden</h1>
+            <p>LearningApp für Geschichte | Klasse 10 | Gymnasium NRW</p>
+        </header>
+
+        <div class="nav-buttons">
+            <button onclick="showExercise(1)" class="active">1. Lückentext</button>
+            <button onclick="showExercise(2)">2. Besatzungszonen</button>
+            <button onclick="showExercise(3)">3. Potsdam</button>
+            <button onclick="showExercise(4)">4. Begriffe</button>
+            <button onclick="showExercise(5)">5. Chronologie</button>
+            <button onclick="showExercise(6)">6. Faktencheck</button>
+        </div>
+
+        <!-- Übung 1: Lückentext -->
+        <div class="exercise active" id="exercise1">
+            <h2>Übung 1: Lückentext – Die Kapitulation 1945</h2>
+            <p>Ergänze die fehlenden Begriffe im Text.</p>
+
+            <div class="question">
+                <h3>Text vervollständigen</h3>
+                <p>Am <strong>7. Mai 1945</strong> unterzeichnete Generaloberst <input type="text" id="l1" placeholder="Name des Generals"> in <input type="text" id="l2" placeholder="Ort"> die bedingungslose Kapitulation der deutschen Wehrmacht. Diese trat am <input type="text" id="l3" placeholder="Datum"> in Kraft. Am 8. Mai unterschrieb Generalfeldmarschall <input type="text" id="l4" placeholder="Name des Feldmarschalls"> im sowjetischen Hauptquartier in <input type="text" id="l5" placeholder="Ort"> eine weitere Kapitulationsurkunde. Der Zweite Weltkrieg endete in Europa. Am <input type="text" id="l6" placeholder="Datum"> kapitulierte <input type="text" id="l7" placeholder="Land">, womit der Krieg auch im pazifischen Raum beendet war.</p>
+
+                <button class="check-btn" onclick="checkExercise1()">Überprüfen</button>
+
+                <div id="feedback1" class="feedback"></div>
+                <div id="solution1" class="solution">
+                    <strong>Lösung:</strong> Jodl – Reims – 8. Mai 1945 – Keitel – Berlin-Karlshorst – 2. September 1945 – Japan
+                </div>
+            </div>
+        </div>
+
+        <!-- Übung 2: Besatzungszonen -->
+        <div class="exercise" id="exercise2">
+            <h2>Übung 2: Zuordnungsübung – Besatzungszonen und Siegermächte</h2>
+            <p>Ordne jede Siegermacht ihrer Besatzungszone in Deutschland zu. Klicke zuerst auf eine Siegermacht, dann auf die passende Zone.</p>
+
+            <div class="question">
+                <h3>Besatzungszonen zuordnen</h3>
+                <div class="matching-grid">
+                    <div class="match-item" data-type="power" data-id="1">USA</div>
+                    <div class="match-item" data-type="zone" data-id="1">Bayern, Hessen, Teile von Baden-Württemberg</div>
+                    <div class="match-item" data-type="power" data-id="2">Großbritannien</div>
+                    <div class="match-item" data-type="zone" data-id="2">Nordwestdeutschland, Schleswig-Holstein, Hamburg</div>
+                    <div class="match-item" data-type="power" data-id="3">Frankreich</div>
+                    <div class="match-item" data-type="zone" data-id="3">Südwestdeutschland, Rheinland-Pfalz, Saarland</div>
+                    <div class="match-item" data-type="power" data-id="4">Sowjetunion</div>
+                    <div class="match-item" data-type="zone" data-id="4">Ostdeutschland (später DDR)</div>
+                </div>
+
+                <button class="check-btn" onclick="checkExercise2()">Überprüfen</button>
+
+                <div id="feedback2" class="feedback"></div>
+                <div id="solution2" class="solution">
+                    <strong>Lösung:</strong> USA → Bayern/Hessen | Großbritannien → Nordwestdeutschland | Frankreich → Südwestdeutschland | Sowjetunion → Ostdeutschland
+                </div>
+            </div>
+        </div>
+
+        <!-- Übung 3: Potsdamer Konferenz -->
+        <div class="exercise" id="exercise3">
+            <h2>Übung 3: Multiple Choice – Potsdamer Konferenz 1945</h2>
+            <p>Was beschlossen die Alliierten auf der Potsdamer Konferenz im Sommer 1945? (Mehrfachauswahl möglich)</p>
+
+            <div class="question">
+                <h3>Fragen zur Potsdamer Konferenz</h3>
+                <div class="options">
+                    <label><input type="checkbox" name="potsdam" value="a"> Die Aufteilung Deutschlands in vier Besatzungszonen</label>
+                    <label><input type="checkbox" name="potsdam" value="b"> Die sofortige Wiedervereinigung Deutschlands</label>
+                    <label><input type="checkbox" name="potsdam" value="c"> Die Entnazifizierung, Demilitarisierung und Demokratisierung Deutschlands</label>
+                    <label><input type="checkbox" name="potsdam" value="d"> Die Gründung der NATO</label>
+                    <label><input type="checkbox" name="potsdam" value="e"> Die Übernahme der obersten Regierungsgewalt durch die vier Siegermächte</label>
+                </div>
+
+                <button class="check-btn" onclick="checkExercise3()">Überprüfen</button>
+
+                <div id="feedback3" class="feedback"></div>
+                <div id="solution3" class="solution">
+                    <strong>Lösung:</strong> A, C, E sind richtig. Die Alliierten teilten Deutschland in vier Zonen, beschlossen Entnazifizierung, Demilitarisierung und Demokratisierung, und übernahmen die oberste Regierungsgewalt.
+                </div>
+            </div>
+        </div>
+
+        <!-- Übung 4: Begriffe -->
+        <div class="exercise" id="exercise4">
+            <h2>Übung 4: Begriffe der Nachkriegszeit</h2>
+            <p>Ordne die Begriffe den passenden Beschreibungen zu.</p>
+
+            <div class="question">
+                <h3>Begriffe zuordnen</h3>
+                <div class="matching-grid">
+                    <div class="match-item" data-type="term" data-id="1">Trümmerfrauen</div>
+                    <div class="match-item" data-type="desc" data-id="1">Frauen, die in den zerstörten Städten Aufräumarbeiten leisteten</div>
+                    <div class="match-item" data-type="term" data-id="2">Hungerwinter 1946/47</div>
+                    <div class="match-item" data-type="desc" data-id="2">Extreme Nahrungsmittelknappheit und Kälte in Deutschland</div>
+                    <div class="match-item" data-type="term" data-id="3">Entnazifizierung</div>
+                    <div class="match-item" data-type="desc" data-id="3">Prozess zur Entfernung nationalsozialistischer Einflüsse</div>
+                    <div class="match-item" data-type="term" data-id="4">Berliner Deklaration</div>
+                    <div class="match-item" data-type="desc" data-id="4">Übernahme der Regierungsgewalt durch die Alliierten am 5. Juni 1945</div>
+                </div>
+
+                <button class="check-btn" onclick="checkExercise4()">Überprüfen</button>
+
+                <div id="feedback4" class="feedback"></div>
+                <div id="solution4" class="solution">
+                    <strong>Lösung:</strong> Trümmerfrauen → Aufräumarbeiten | Hungerwinter → Nahrungsmittelknappheit | Entnazifizierung → Entfernung NS-Einflüsse | Berliner Deklaration → Regierungsgewalt Alliierte
+                </div>
+            </div>
+        </div>
+
+        <!-- Übung 5: Chronologie -->
+        <div class="exercise" id="exercise5">
+            <h2>Übung 5: Chronologie – Vom Kriegsende zur Friedensordnung</h2>
+            <p>Bringe die Ereignisse in die richtige Reihenfolge (1-5).</p>
+
+            <div class="question">
+                <h3>Ereignisse chronologisch ordnen</h3>
+                <p><label>Bedingungslose Kapitulation in Reims <input type="text" id="c1" placeholder="1-5" style="width:60px;display:inline-block;"></label></p>
+                <p><label>Kapitulation in Berlin-Karlshorst <input type="text" id="c2" placeholder="1-5" style="width:60px;display:inline-block;"></label></p>
+                <p><label>Berliner Deklaration <input type="text" id="c3" placeholder="1-5" style="width:60px;display:inline-block;"></label></p>
+                <p><label>Potsdamer Konferenz <input type="text" id="c4" placeholder="1-5" style="width:60px;display:inline-block;"></label></p>
+                <p><label>Kapitulation Japans <input type="text" id="c5" placeholder="1-5" style="width:60px;display:inline-block;"></label></p>
+
+                <button class="check-btn" onclick="checkExercise5()">Überprüfen</button>
+
+                <div id="feedback5" class="feedback"></div>
+                <div id="solution5" class="solution">
+                    <strong>Lösung:</strong> 1. Reims (7. Mai) → 2. Berlin-Karlshorst (8./9. Mai) → 3. Berliner Deklaration (5. Juni) → 4. Potsdam (Juli-August) → 5. Japan (2. September)
+                </div>
+            </div>
+        </div>
+
+        <!-- Übung 6: Faktencheck -->
+        <div class="exercise" id="exercise6">
+            <h2>Übung 6: Wahr/Falsch – Faktencheck 1945</h2>
+            <p>Entscheide, ob die Aussagen wahr oder falsch sind.</p>
+
+            <div class="question">
+                <h3>Aussagen bewerten</h3>
+                <p><label><input type="radio" name="wf1" value="w"> Wahr <input type="radio" name="wf1" value="f"> Falsch – Der Zweite Weltkrieg endete in Europa am 8. Mai 1945.</label></p>
+                <p><label><input type="radio" name="wf2" value="w"> Wahr <input type="radio" name="wf2" value="f"> Falsch – Deutschland wurde nach 1945 in drei Besatzungszonen aufgeteilt.</label></p>
+                <p><label><input type="radio" name="wf3" value="w"> Wahr <input type="radio" name="wf3" value="f"> Falsch – Die Potsdamer Konferenz fand vor der Kapitulation Deutschlands statt.</label></p>
+                <p><label><input type="radio" name="wf4" value="w"> Wahr <input type="radio" name="wf4" value="f"> Falsch – Die Alliierten übernahmen die oberste Regierungsgewalt in Deutschland.</label></p>
+                <p><label><input type="radio" name="wf5" value="w"> Wahr <input type="radio" name="wf5" value="f"> Falsch – Japan kapitulierte bereits im Mai 1945.</label></p>
+
+                <button class="check-btn" onclick="checkExercise6()">Überprüfen</button>
+
+                <div id="feedback6" class="feedback"></div>
+                <div id="solution6" class="solution">
+                    <strong>Lösung:</strong> 1. Wahr | 2. Falsch (vier Zonen) | 3. Falsch (nach der Kapitulation) | 4. Wahr | 5. Falsch (2. September 1945)
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>LearningApp für den Geschichtsunterricht | Thema: Kriegsende und Frieden nach dem Zweiten Weltkrieg | Klasse 10 Gymnasium NRW</p>
+            <p>Hosted on GitHub Pages | © 2026</p>
+        </footer>
+    </div>
+
+    <script>
+        // Navigation zwischen Übungen
+        function showExercise(num) {
+            document.querySelectorAll('.exercise').forEach(ex => ex.classList.remove('active'));
+            document.querySelectorAll('.nav-buttons button').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('exercise' + num).classList.add('active');
+            document.querySelectorAll('.nav-buttons button')[num-1].classList.add('active');
+        }
+
+        // Übung 1: Lückentext
+        function checkExercise1() {
+            const answers = {
+                l1: ['jodl', 'generaloberst jodl'],
+                l2: ['reims'],
+                l3: ['8. mai 1945', '8 mai 1945'],
+                l4: ['keitel', 'generalfeldmarschall keitel'],
+                l5: ['berlin-karlshorst', 'berlin karlshorst', 'karlshorst'],
+                l6: ['2. september 1945', '2 september 1945'],
+                l7: ['japan']
+            };
+
+            let correct = 0;
+            let total = 7;
+
+            for (let key in answers) {
+                const userAnswer = document.getElementById(key).value.toLowerCase().trim();
+                if (answers[key].includes(userAnswer)) {
+                    correct++;
+                }
+            }
+
+            const feedback = document.getElementById('feedback1');
+            const percentage = Math.round((correct / total) * 100);
+
+            if (correct === total) {
+                feedback.className = 'feedback correct';
+                feedback.innerHTML = `🎉 Perfekt! Alle ${correct} von ${total} Antworten sind richtig!`;
+            } else if (correct >= total - 2) {
+                feedback.className = 'feedback correct';
+                feedback.innerHTML = `👍 Gut! ${correct} von ${total} Antworten sind richtig (${percentage}%).`;
+            } else {
+                feedback.className = 'feedback incorrect';
+                feedback.innerHTML = `⚠️ ${correct} von ${total} Antworten sind richtig (${percentage}%). Schau dir die Lösung an und versuche es erneut!`;
+            }
+
+            document.getElementById('solution1').style.display = 'block';
+        }
+
+        // Übung 2: Matching
+        let selectedPower = null;
+        let selectedZone = null;
+        let matches2 = 0;
+
+        document.querySelectorAll('#exercise2 .match-item').forEach(item => {
+            item.addEventListener('click', function() {
+                if (this.classList.contains('matched')) return;
+
+                if (this.dataset.type === 'power') {
+                    if (selectedPower) selectedPower.classList.remove('selected');
+                    selectedPower = this;
+                    this.classList.add('selected');
+                } else if (this.dataset.type === 'zone') {
+                    if (selectedZone) selectedZone.classList.remove('selected');
+                    selectedZone = this;
+                    this.classList.add('selected');
+                }
+
+                if (selectedPower && selectedZone) {
+                    if (selectedPower.dataset.id === selectedZone.dataset.id) {
+                        selectedPower.classList.add('matched');
+                        selectedZone.classList.add('matched');
+                        selectedPower.classList.remove('selected');
+                        selectedZone.classList.remove('selected');
+                        selectedPower = null;
+                        selectedZone = null;
+                        matches2++;
+                    } else {
+                        setTimeout(() => {
+                            if (selectedPower) selectedPower.classList.remove('selected');
+                            if (selectedZone) selectedZone.classList.remove('selected');
+                            selectedPower = null;
+                            selectedZone = null;
+                        }, 500);
+                    }
+                }
+            });
+        });
+
+        function checkExercise2() {
+            const feedback = document.getElementById('feedback2');
+
+            if (matches2 === 4) {
+                feedback.className = 'feedback correct';
+                feedback.innerHTML = '🎉 Perfekt! Alle 4 Zuordnungen sind richtig!';
+            } else {
+                feedback.className = 'feedback incorrect';
+                feedback.innerHTML = `⚠️ ${matches2} von 4 Zuordnungen sind richtig. Versuche es weiter!`;
+            }
+
+            document.getElementById('solution2').style.display = 'block';
+        }
+
+        // Übung 3: Multiple Choice
+        function checkExercise3() {
+            const checked = document.querySelectorAll('input[name="potsdam"]:checked');
+            const values = Array.from(checked).map(cb => cb.value);
+
+            const correct = ['a', 'c', 'e'];
+            const isCorrect = values.length === 3 && values.every(v => correct.includes(v));
+
+            const feedback = document.getElementById('feedback3');
+
+            if (isCorrect) {
+                feedback.className = 'feedback correct';
+                feedback.innerHTML = '🎉 Richtig! A, C und E sind die korrekten Antworten.';
+            } else {
+                feedback.className = 'feedback incorrect';
+                feedback.innerHTML = '⚠️ Nicht ganz richtig. Die richtigen Antworten sind A, C und E.';
+            }
+
+            document.getElementById('solution3').style.display = 'block';
+        }
+
+        // Übung 4: Matching Begriffe
+        let selectedTerm = null;
+        let selectedDesc = null;
+        let matches4 = 0;
+
+        document.querySelectorAll('#exercise4 .match-item').forEach(item => {
+            item.addEventListener('click', function() {
+                if (this.classList.contains('matched')) return;
+
+                if (this.dataset.type === 'term') {
+                    if (selectedTerm) selectedTerm.classList.remove('selected');
+                    selectedTerm = this;
+                    this.classList.add('selected');
+                } else if (this.dataset.type === 'desc') {
+                    if (selectedDesc) selectedDesc.classList.remove('selected');
+                    selectedDesc = this;
+                    this.classList.add('selected');
+                }
+
+                if (selectedTerm && selectedDesc) {
+                    if (selectedTerm.dataset.id === selectedDesc.dataset.id) {
+                        selectedTerm.classList.add('matched');
+                        selectedDesc.classList.add('matched');
+                        selectedTerm.classList.remove('selected');
+                        selectedDesc.classList.remove('selected');
+                        selectedTerm = null;
+                        selectedDesc = null;
+                        matches4++;
+                    } else {
+                        setTimeout(() => {
+                            if (selectedTerm) selectedTerm.classList.remove('selected');
+                            if (selectedDesc) selectedDesc.classList.remove('selected');
+                            selectedTerm = null;
+                            selectedDesc = null;
+                        }, 500);
+                    }
+                }
+            });
+        });
+
+        function checkExercise4() {
+            const feedback = document.getElementById('feedback4');
+
+            if (matches4 === 4) {
+                feedback.className = 'feedback correct';
+                feedback.innerHTML = '🎉 Perfekt! Alle 4 Begriffe sind richtig zugeordnet!';
+            } else {
+                feedback.className = 'feedback incorrect';
+                feedback.innerHTML = `⚠️ ${matches4} von 4 Zuordnungen sind richtig. Versuche es weiter!`;
+            }
+
+            document.getElementById('solution4').style.display = 'block';
+        }
+
+        // Übung 5: Chronologie
+        function checkExercise5() {
+            const answers = {
+                c1: '1',
+                c2: '2',
+                c3: '3',
+                c4: '4',
+                c5: '5'
+            };
+
+            let correct = 0;
+
+            for (let key in answers) {
+                if (document.getElementById(key).value.trim() === answers[key]) {
+                    correct++;
+                }
+            }
+
+            const feedback = document.getElementById('feedback5');
+
+            if (correct === 5) {
+                feedback.className = 'feedback correct';
+                feedback.innerHTML = '🎉 Perfekt! Die Chronologie ist vollständig richtig!';
+            } else {
+                feedback.className = 'feedback incorrect';
+                feedback.innerHTML = `⚠️ ${correct} von 5 Positionen sind richtig. Schau dir die Lösung an!`;
+            }
+
+            document.getElementById('solution5').style.display = 'block';
+        }
+
+        // Übung 6: Wahr/Falsch
+        function checkExercise6() {
+            const answers = {
+                wf1: 'w',
+                wf2: 'f',
+                wf3: 'f',
+                wf4: 'w',
+                wf5: 'f'
+            };
+
+            let correct = 0;
+
+            for (let key in answers) {
+                const selected = document.querySelector(`input[name="${key}"]:checked`);
+                if (selected && selected.value === answers[key]) {
+                    correct++;
+                }
+            }
+
+            const feedback = document.getElementById('feedback6');
+
+            if (correct === 5) {
+                feedback.className = 'feedback correct';
+                feedback.innerHTML = '🎉 Perfekt! Alle 5 Aussagen sind richtig bewertet!';
+            } else if (correct >= 3) {
+                feedback.className = 'feedback correct';
+                feedback.innerHTML = `👍 Gut! ${correct} von 5 Aussagen sind richtig bewertet.`;
+            } else {
+                feedback.className = 'feedback incorrect';
+                feedback.innerHTML = `⚠️ ${correct} von 5 Aussagen sind richtig bewertet. Schau dir die Lösung an!`;
+            }
+
+            document.getElementById('solution6').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
